@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://l4j08ofleqf3"]
+
+[ext_resource type="Texture2D" uid="uid://bbhpx5fm1bauf" path="res://assets/snake_head.png" id="1_4q5nd"]
+
+[node name="snake_head" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_4q5nd")
+offset = Vector2(16, 16)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx1i70bpxwmy7"]
+
+[ext_resource type="Script" path="res://scenes/food.gd" id="1_xmcwn"]
+[ext_resource type="Texture2D" uid="uid://bt7wgpo8u8i4e" path="res://assets/bannana.png" id="2_rsg53"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7k8lr"]
+radius = 11.0
+
+[node name="Food" type="Area2D" groups=["food"]]
+script = ExtResource("1_xmcwn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_7k8lr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_7k8lr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_rsg53")
