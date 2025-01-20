@@ -25,7 +25,8 @@ var speed_step : float = 25.0
 @onready var head : SnakePart
 @onready var bounds : Bounds = $Bounds as Bounds
 @onready var spawner : Spawner = $Spawner as Spawner
-@onready var hud : Hud = $Hud as Hud
+@onready var hud: Hud = $Hud as Hud
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -162,7 +163,7 @@ func _on_tail_added(tail:SnakePart):
 func _on_snake_collided():
 	print("Game over!")
 	game_active = false
-	hud.game_over()
+	hud.game_over(score)
 	pass
 	
 	

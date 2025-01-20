@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://btxgdgjef53lx"]
+[gd_scene load_steps=13 format=3 uid="uid://btxgdgjef53lx"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_u73lf"]
 [ext_resource type="FontFile" uid="uid://bafn8mqjjtnfp" path="res://assets/fonts/karmatic-arcade/ka1.ttf" id="2_42q4b"]
 [ext_resource type="FontFile" uid="uid://y1gcmddq3xmk" path="res://assets/fonts/pixel-game/Pixel Game.otf" id="2_axbef"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="3_mgy6r"]
+[ext_resource type="Script" path="res://scripts/top_10_panel.gd" id="5_h6vyt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6kbvn"]
 bg_color = Color(1.92523e-07, 0.6967, 0.609499, 1)
@@ -55,10 +56,12 @@ _data = {
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsr3k"]
 bg_color = Color(0.838796, 0.412165, 0.798583, 1)
 
-[node name="Hud" type="CanvasLayer"]
+[node name="Hud" type="Node2D"]
 script = ExtResource("1_u73lf")
 
-[node name="ScorePanel" type="Panel" parent="."]
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="ScorePanel" type="Panel" parent="Hud"]
 anchors_preset = -1
 anchor_right = 0.36
 offset_right = 512.0
@@ -68,7 +71,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_6kbvn")
 
-[node name="ScoreLabel" type="Label" parent="."]
+[node name="ScoreLabel" type="Label" parent="Hud/ScorePanel"]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -82,13 +86,31 @@ text = "SCORE: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameOverPanel" type="Panel" parent="."]
+[node name="HighScoreLabel" type="Label" parent="Hud/ScorePanel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -23.0
+offset_right = -3.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+text = "HIGH
+SCORE: "
+uppercase = true
+
+[node name="GameOverPanel" type="Panel" parent="Hud"]
 offset_top = 153.0
 offset_right = 799.0
 offset_bottom = 356.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yyps2")
 
-[node name="Label" type="Label" parent="GameOverPanel"]
+[node name="Label" type="Label" parent="Hud/GameOverPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,12 +131,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverPanel/Label"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hud/GameOverPanel/Label"]
 libraries = {
 "": SubResource("AnimationLibrary_xflhx")
 }
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="Hud"]
 visible = false
 offset_left = 532.0
 offset_top = 369.0
@@ -128,4 +150,44 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_bsr3k")
 text = "Play Again"
 script = ExtResource("3_mgy6r")
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="NewTop10" type="Panel" parent="Hud"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Top10Panel" type="Panel" parent="Hud"]
+offset_left = 415.0
+offset_top = 431.0
+offset_right = 778.0
+offset_bottom = 779.0
+script = ExtResource("5_h6vyt")
+
+[node name="TitleLabel" type="Label" parent="Hud/Top10Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "TOP 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreContainer" type="GridContainer" parent="Hud/Top10Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 42.0
+offset_bottom = -276.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Hud/Top10Panel/ScoreContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="pressed" from="Hud/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Hud/Button" to="Hud" method="_on_button_pressed"]
