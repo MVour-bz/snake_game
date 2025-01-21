@@ -1,13 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://btxgdgjef53lx"]
+[gd_scene load_steps=20 format=3 uid="uid://btxgdgjef53lx"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_u73lf"]
 [ext_resource type="FontFile" uid="uid://bafn8mqjjtnfp" path="res://assets/fonts/karmatic-arcade/ka1.ttf" id="2_42q4b"]
 [ext_resource type="FontFile" uid="uid://y1gcmddq3xmk" path="res://assets/fonts/pixel-game/Pixel Game.otf" id="2_axbef"]
+[ext_resource type="Script" path="res://scripts/score_panel.gd" id="2_nx7jb"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="3_mgy6r"]
+[ext_resource type="Script" path="res://scripts/game_over_panel.gd" id="3_nbvr4"]
 [ext_resource type="Script" path="res://scripts/top_10_panel.gd" id="5_h6vyt"]
+[ext_resource type="Script" path="res://scripts/store_score_panel.gd" id="6_0odfx"]
+[ext_resource type="Script" path="res://scripts/save_button.gd" id="6_cc27r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6kbvn"]
-bg_color = Color(1.92523e-07, 0.6967, 0.609499, 1)
+bg_color = Color(0.105882, 0.0117647, 0.639216, 0.988235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_orvw8"]
+bg_color = Color(0.522675, 0.632277, 0.559396, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyps2"]
 bg_color = Color(0, 0, 0, 0.588235)
@@ -53,8 +60,14 @@ _data = {
 "TEXT_GROW": SubResource("Animation_7hg7m")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xdv3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsr3k"]
 bg_color = Color(0.838796, 0.412165, 0.798583, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rriv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Hud" type="Node2D"]
 script = ExtResource("1_u73lf")
@@ -62,14 +75,14 @@ script = ExtResource("1_u73lf")
 [node name="Hud" type="CanvasLayer" parent="."]
 
 [node name="ScorePanel" type="Panel" parent="Hud"]
-anchors_preset = -1
-anchor_right = 0.36
-offset_right = 512.0
-offset_bottom = 50.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6kbvn")
+script = ExtResource("2_nx7jb")
 
 [node name="ScoreLabel" type="Label" parent="Hud/ScorePanel"]
 layout_mode = 1
@@ -104,11 +117,24 @@ text = "HIGH
 SCORE: "
 uppercase = true
 
+[node name="ChangeThemeButton" type="Button" parent="Hud/ScorePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -18.5
+offset_right = 65.0
+offset_bottom = 18.5
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_orvw8")
+text = "Change Theme"
+
 [node name="GameOverPanel" type="Panel" parent="Hud"]
 offset_top = 153.0
 offset_right = 799.0
 offset_bottom = 356.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yyps2")
+script = ExtResource("3_nbvr4")
 
 [node name="Label" type="Label" parent="Hud/GameOverPanel"]
 layout_mode = 1
@@ -136,24 +162,6 @@ libraries = {
 "": SubResource("AnimationLibrary_xflhx")
 }
 
-[node name="Button" type="Button" parent="Hud"]
-visible = false
-offset_left = 532.0
-offset_top = 369.0
-offset_right = 757.0
-offset_bottom = 418.0
-theme_override_colors/font_color = Color(0.683357, 0.401027, 0.188056, 1)
-theme_override_colors/font_outline_color = Color(0.603922, 0, 0.760784, 1)
-theme_override_fonts/font = ExtResource("2_axbef")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/hover = SubResource("StyleBoxFlat_bsr3k")
-text = "Play Again"
-script = ExtResource("3_mgy6r")
-
-[node name="NewTop10" type="Panel" parent="Hud"]
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="Top10Panel" type="Panel" parent="Hud"]
 offset_left = 415.0
 offset_top = 431.0
@@ -171,23 +179,110 @@ text = "TOP 10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="NameLabel" type="Label" parent="Hud/Top10Panel"]
+layout_mode = 2
+offset_left = 17.0
+offset_top = 42.0
+offset_right = 167.0
+offset_bottom = 65.0
+text = "NAME"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Hud/Top10Panel"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 40.0
+offset_right = 344.0
+offset_bottom = 63.0
+text = "SCORE"
+horizontal_alignment = 1
+
 [node name="ScoreContainer" type="GridContainer" parent="Hud/Top10Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 42.0
-offset_bottom = -276.0
+offset_left = 17.0
+offset_top = 75.0
+offset_right = -19.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Hud/Top10Panel/ScoreContainer"]
-layout_mode = 2
+[node name="StoreScorePanel" type="Panel" parent="Hud"]
+offset_left = 40.0
+offset_top = 433.0
+offset_right = 357.0
+offset_bottom = 712.0
+script = ExtResource("6_0odfx")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Label" type="Label" parent="Hud/StoreScorePanel"]
+layout_mode = 2
+offset_right = 317.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "NEW HIGH SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/StoreScorePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 67.0
+offset_right = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+
+[node name="Score" type="Label" parent="Hud/StoreScorePanel/VBoxContainer"]
+layout_mode = 2
+text = "SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="PlayerNameLabel" type="Label" parent="Hud/StoreScorePanel/VBoxContainer"]
+layout_mode = 2
+text = "Enter your name:"
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Hud/StoreScorePanel/VBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+placeholder_text = "..."
+alignment = 1
+clear_button_enabled = true
+
+[node name="SaveButton" type="Button" parent="Hud/StoreScorePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_3xdv3")
+text = "SAVE"
+script = ExtResource("6_cc27r")
+
+[node name="Button" type="Button" parent="Hud"]
+offset_left = 532.0
+offset_top = 369.0
+offset_right = 757.0
+offset_bottom = 418.0
+theme_override_colors/font_color = Color(0.683357, 0.401027, 0.188056, 1)
+theme_override_colors/font_outline_color = Color(0.603922, 0, 0.760784, 1)
+theme_override_fonts/font = ExtResource("2_axbef")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover = SubResource("StyleBoxFlat_bsr3k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1rriv")
+text = "Play Again"
+script = ExtResource("3_mgy6r")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="ready" from="Hud/ScorePanel" to="Hud/ScorePanel" method="_on_ready"]
+[connection signal="button_down" from="Hud/ScorePanel/ChangeThemeButton" to="." method="_on_change_theme_button_button_down"]
+[connection signal="ready" from="Hud/GameOverPanel" to="Hud/GameOverPanel" method="_on_ready"]
+[connection signal="ready" from="Hud/StoreScorePanel" to="Hud/StoreScorePanel" method="_on_ready"]
+[connection signal="store_score" from="Hud/StoreScorePanel" to="." method="_on_store_score_panel_store_score"]
+[connection signal="pressed" from="Hud/StoreScorePanel/VBoxContainer/SaveButton" to="Hud/StoreScorePanel" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Hud/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Hud/Button" to="Hud" method="_on_button_pressed"]

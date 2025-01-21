@@ -6,11 +6,16 @@ class_name Hud extends Node2D
 @onready var play_again_button: PlayAgainButton = $Hud/Button as PlayAgainButton
 @onready var high_score_label: Label = $Hud/ScorePanel/HighScoreLabel
 @onready var top_10_panel: Top10Panel = $Hud/Top10Panel as Top10Panel
+@onready var store_score_panel: StoreScorePanel = $Hud/StoreScorePanel
 
 @onready var game_data_file
 @onready var statistics_dict
 
 signal play_again
+
+var base_stats_dict = {
+	"top_10": [], "high_score": { "name" : "", "score": 0}
+}
 
 
 var score : int = 0
@@ -47,29 +52,34 @@ func reset_all():
 	animation_player.stop()
 	play_again_button.hide()
 	game_over_panel.hide()
+	store_score_panel.hide()
+	top_10_panel.hide()
 	score_reset()
 	
-func game_over(score):
+func game_over():
+	print("score: ", score)
 	play_again_button.show()
 	game_over_panel.show()
 	animation_player.play("TEXT_GROW")
+	top_10_panel.show()
 	
 	if is_top_10(score):
-		if is_high_score(score):
-			pass
-		else:
-			pass
-		update_game_statistics("", score)
+		store_score_panel.show()
+		store_score_panel.set_score_label(score)
+	
 	
 
 func open_game_file():
 	var json = JSON.new()
-	game_data_file = FileAccess.open(Global.GAME_DATA_FILE_PATH, FileAccess.READ_WRITE)
+	game_data_file = FileAccess.open(Global.GAME_DATA_FILE_PATH, FileAccess.READ)
 	var game_data_str = game_data_file.get_file_as_string(Global.GAME_DATA_FILE_PATH)
 	statistics_dict = json.parse_string(game_data_str)
 	#sort dict:
+	if statistics_dict == null:
+		statistics_dict = base_stats_dict
 	statistics_dict["top_10"].sort_custom(func(a,b):
 		return b["score"]-a["score"])
+	game_data_file.close()
 	
 func get_top_10():
 	return statistics_dict["top_10"]
@@ -78,7 +88,10 @@ func get_high_score():
 	return statistics_dict["high_score"]
 	
 func is_top_10(score):
+	if statistics_dict["top_10"].size() < 10:
+		return true
 	for i in range(0, statistics_dict["top_10"].size(), 1):
+		#print("compare: ", score, " , ", statistics_dict["top_10"][i])
 		if score > statistics_dict["top_10"][i].score:
 			return true
 	return false
@@ -89,9 +102,9 @@ func is_high_score(score):
 	else:
 		return false
 		
-func update_game_statistics(name, score):
+func update_game_statistics(name, score) -> bool:
 	if not is_top_10(score) || score <=0:
-		return
+		return false
 	
 	var inserted = false
 	for i in range(0, statistics_dict["top_10"].size(), 1):
@@ -103,16 +116,42 @@ func update_game_statistics(name, score):
 		statistics_dict["top_10"].append({"name": name, "score": score})
 	
 	if statistics_dict["top_10"].size() > 10:
-		statistics_dict["top_10"].remove(10)
+		statistics_dict["top_10"] = statistics_dict["top_10"].slice(0,10)
 	
-	if score > statistics_dict["high_score"]:
+	if score > statistics_dict["high_score"].score:
 		statistics_dict["high_score"] = {"name": name, "score": score}
 		update_high_score_label(name, score)
 	
-	
-	return false
+	statistics_dict["top_10"].sort_custom(func(a,b):
+		return b["score"]-a["score"])
+	store_updated_dict()
+	print("updated")
+	return true
 
 func update_high_score_label(name, score):
 	high_score_label.text = "HIGH\nSCORE: " + str(score)
 	
+func store_updated_dict():
+	var json = JSON.new()
+	game_data_file = FileAccess.open(Global.GAME_DATA_FILE_PATH, FileAccess.WRITE)
+	#var statistics_str = json.stringify(statistics_dict)
 	
+	game_data_file.store_string(JSON.stringify(statistics_dict)) ## ifnot try to store the statistics str
+	
+	game_data_file.close()
+	#game_data_file.store_string()
+
+
+func _on_store_score_panel_store_score(name, score) -> void:
+	print("clicked, score: ", score)
+	if update_game_statistics(name, score):
+		top_10_panel.empty_top_10()
+		top_10_panel.set_top_10(statistics_dict["top_10"])
+
+
+func _on_change_theme_button_button_down() -> void:
+	if Global.ACTIVE_THEME == "dark_theme":
+		Global.ACTIVE_THEME = "light_theme"
+	else:
+		Global.ACTIVE_THEME = "dark_theme"
+	SignalBus.change_theme.emit()

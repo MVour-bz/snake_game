@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://i4wppf3qwm1n"]
+
+[ext_resource type="Script" path="res://scripts/top_10_entry.gd" id="1_owv7t"]
+[ext_resource type="Script" path="res://top_10_name.gd" id="2_djrrm"]
+[ext_resource type="Script" path="res://scripts/top_10_score.gd" id="3_6pshf"]
+
+[sub_resource type="Theme" id="Theme_1mgwx"]
+
+[node name="top10Entry" type="GridContainer"]
+clip_contents = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+columns = 2
+script = ExtResource("1_owv7t")
+
+[node name="top10Name" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_1mgwx")
+text = "Name:"
+horizontal_alignment = 1
+script = ExtResource("2_djrrm")
+
+[node name="top10Score" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Score:"
+horizontal_alignment = 1
+script = ExtResource("3_6pshf")

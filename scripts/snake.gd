@@ -26,6 +26,7 @@ var speed_step : float = 25.0
 @onready var bounds : Bounds = $Bounds as Bounds
 @onready var spawner : Spawner = $Spawner as Spawner
 @onready var hud: Hud = $Hud as Hud
+@onready var bg_panel: Panel = $TileMapLayer/BGPanel
 
 
 
@@ -38,7 +39,18 @@ func _ready() -> void:
 	spawner.body_added.connect(_on_body_added)
 	hud.play_again.connect(_on_play_again)
 	hud.reset_all()
+	SignalBus.change_theme.connect(_on_theme_change)
+	update_bg_color()
 	new_game()
+	
+
+
+func _on_theme_change():
+	update_bg_color()
+
+func update_bg_color():
+	var style_box = bg_panel.get_theme_stylebox("panel")
+	style_box.bg_color = Global.PALLETES[Global.ACTIVE_THEME].background
 	
 
 
@@ -163,7 +175,7 @@ func _on_tail_added(tail:SnakePart):
 func _on_snake_collided():
 	print("Game over!")
 	game_active = false
-	hud.game_over(score)
+	hud.game_over()
 	pass
 	
 	
