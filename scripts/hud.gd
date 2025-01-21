@@ -111,6 +111,7 @@ func update_game_statistics(name, score) -> bool:
 		if score > statistics_dict["top_10"][i].score:
 			inserted = true
 			statistics_dict["top_10"].insert(i, {"name": name, "score": score})
+			break
 	
 	if not inserted:
 		statistics_dict["top_10"].append({"name": name, "score": score})
