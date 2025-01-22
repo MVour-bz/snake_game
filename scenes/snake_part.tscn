@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr2767x8yyv0d"]
+[gd_scene load_steps=4 format=3 uid="uid://cr2767x8yyv0d"]
 
 [ext_resource type="Script" path="res://scripts/snake_part.gd" id="1_10ujp"]
+[ext_resource type="Texture2D" uid="uid://bbhpx5fm1bauf" path="res://assets/snake_head.png" id="2_0ojel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jgqfv"]
 
 [node name="snake_part" type="Area2D" groups=["snake"]]
 script = ExtResource("1_10ujp")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0ojel")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jgqfv")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

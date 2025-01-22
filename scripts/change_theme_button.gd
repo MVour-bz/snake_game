@@ -5,7 +5,6 @@ extends Button
 	"light_theme": preload("res://assets/moon.png")
 }
 func _on_button_down() -> void:
-	print("mphke")
 	if Global.ACTIVE_THEME == "dark_theme":
 		Global.ACTIVE_THEME = "light_theme"
 		self.icon = icons["light_theme"]

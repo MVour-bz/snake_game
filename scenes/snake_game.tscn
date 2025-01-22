@@ -47,8 +47,8 @@ tile_map_data = PackedByteArray("AAAAAAMAAQAAAAAAAAAAADEAAQAAAAAAAAAAADAAAQAAAAA
 tile_set = SubResource("TileSet_gonba")
 
 [node name="BGPanel" type="Panel" parent="TileMapLayer"]
-offset_left = 17.0
-offset_top = 66.0
+offset_left = 16.0
+offset_top = 64.0
 offset_right = 784.0
 offset_bottom = 784.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ig4x0")
