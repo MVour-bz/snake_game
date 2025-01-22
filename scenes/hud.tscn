@@ -96,6 +96,7 @@ offset_right = 85.5
 offset_bottom = 50.0
 grow_horizontal = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_axbef")
 theme_override_font_sizes/font_size = 35
 text = "SCORE: 0"
 horizontal_alignment = 1
@@ -114,7 +115,9 @@ offset_right = -3.0
 offset_bottom = 26.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_font_sizes/font_size = 14
+theme_override_constants/line_spacing = -6
+theme_override_fonts/font = ExtResource("2_axbef")
+theme_override_font_sizes/font_size = 27
 text = "HIGH
 SCORE: "
 uppercase = true
@@ -178,6 +181,8 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 34.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_42q4b")
+theme_override_font_sizes/font_size = 30
 text = "TOP 10"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -188,6 +193,7 @@ offset_left = 17.0
 offset_top = 42.0
 offset_right = 167.0
 offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("2_42q4b")
 text = "NAME"
 horizontal_alignment = 1
 
@@ -197,6 +203,7 @@ offset_left = 182.0
 offset_top = 40.0
 offset_right = 344.0
 offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("2_42q4b")
 text = "SCORE"
 horizontal_alignment = 1
 
@@ -224,6 +231,8 @@ layout_mode = 2
 offset_right = 317.0
 offset_bottom = 53.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_42q4b")
+theme_override_font_sizes/font_size = 25
 text = "NEW HIGH SCORE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -242,13 +251,17 @@ theme_override_constants/separation = 18
 
 [node name="Score" type="Label" parent="Hud/StoreScorePanel/VBoxContainer"]
 layout_mode = 2
-text = "SCORE"
+theme_override_fonts/font = ExtResource("2_42q4b")
+theme_override_font_sizes/font_size = 35
+text = "130"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
 [node name="PlayerNameLabel" type="Label" parent="Hud/StoreScorePanel/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_axbef")
+theme_override_font_sizes/font_size = 20
 text = "Enter your name:"
 horizontal_alignment = 1
 
@@ -262,6 +275,7 @@ clear_button_enabled = true
 [node name="SaveButton" type="Button" parent="Hud/StoreScorePanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_42q4b")
 theme_override_styles/normal = SubResource("StyleBoxFlat_3xdv3")
 text = "SAVE"
 script = ExtResource("6_cc27r")

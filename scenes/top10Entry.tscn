@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://i4wppf3qwm1n"]
+[gd_scene load_steps=7 format=3 uid="uid://i4wppf3qwm1n"]
 
 [ext_resource type="Script" path="res://scripts/top_10_entry.gd" id="1_owv7t"]
 [ext_resource type="Script" path="res://top_10_name.gd" id="2_djrrm"]
+[ext_resource type="FontFile" uid="uid://y1gcmddq3xmk" path="res://assets/fonts/pixel-game/Pixel Game.otf" id="2_hgs6i"]
 [ext_resource type="Script" path="res://scripts/top_10_score.gd" id="3_6pshf"]
+[ext_resource type="FontFile" uid="uid://bafn8mqjjtnfp" path="res://assets/fonts/karmatic-arcade/ka1.ttf" id="4_3ese1"]
 
 [sub_resource type="Theme" id="Theme_1mgwx"]
 
@@ -20,6 +22,7 @@ script = ExtResource("1_owv7t")
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_1mgwx")
+theme_override_fonts/font = ExtResource("2_hgs6i")
 text = "Name:"
 horizontal_alignment = 1
 script = ExtResource("2_djrrm")
@@ -27,6 +30,7 @@ script = ExtResource("2_djrrm")
 [node name="top10Score" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_3ese1")
 text = "Score:"
 horizontal_alignment = 1
 script = ExtResource("3_6pshf")

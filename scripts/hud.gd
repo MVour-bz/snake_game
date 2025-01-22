@@ -128,7 +128,7 @@ func update_game_statistics(name, score) -> bool:
 	statistics_dict["top_10"].sort_custom(func(a,b):
 		return a["score"]>b["score"])
 	store_updated_dict()
-	print("updated")
+	#print("updated")
 	return true
 
 func update_high_score_label(name, score):
@@ -146,7 +146,7 @@ func store_updated_dict():
 
 
 func _on_store_score_panel_store_score(name, score) -> void:
-	print("clicked, score: ", score)
+	#print("clicked, score: ", score)
 	if update_game_statistics(name, score):
 		top_10_panel.empty_top_10()
 		top_10_panel.set_top_10(statistics_dict["top_10"])
