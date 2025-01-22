@@ -3,20 +3,17 @@
 [ext_resource type="Script" path="res://scripts/food.gd" id="1_xcjhh"]
 [ext_resource type="Texture2D" uid="uid://bt7wgpo8u8i4e" path="res://assets/bannana.png" id="2_rsg53"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7k8lr"]
-radius = 11.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be41x"]
+size = Vector2(32, 32)
 
 [node name="Food" type="Area2D" groups=["food"]]
 script = ExtResource("1_xcjhh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
-shape = SubResource("CircleShape2D_7k8lr")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
-shape = SubResource("CircleShape2D_7k8lr")
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_be41x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(-5.96046e-08, -4)
+scale = Vector2(1.35938, 1.23438)
 texture = ExtResource("2_rsg53")

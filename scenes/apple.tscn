@@ -3,17 +3,16 @@
 [ext_resource type="Script" path="res://apple.gd" id="1_8uhj8"]
 [ext_resource type="Texture2D" uid="uid://bprcjikrn558t" path="res://assets/apple.png" id="1_kafi1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_m2mg7"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pk5oe"]
+size = Vector2(32, 32)
 
 [node name="Apple" type="Area2D" groups=["apple"]]
 script = ExtResource("1_8uhj8")
 
-[node name="apple2" type="Sprite2D" parent="." groups=["apple"]]
-position = Vector2(0, -3)
-scale = Vector2(1, 0.9375)
-texture = ExtResource("1_kafi1")
-
 [node name="apple" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("CircleShape2D_m2mg7")
+shape = SubResource("RectangleShape2D_pk5oe")
+
+[node name="apple2" type="Sprite2D" parent="." groups=["apple"]]
+position = Vector2(-1, -7)
+scale = Vector2(1.40625, 1.34375)
+texture = ExtResource("1_kafi1")
