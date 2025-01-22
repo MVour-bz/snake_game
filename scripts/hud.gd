@@ -61,7 +61,7 @@ func game_over():
 	print("score: ", score)
 	play_again_button.show()
 	game_over_panel.show()
-	animation_player.play("TEXT_GROW")
+	animation_player.play("Label")
 	top_10_panel.show()
 	
 	if is_top_10(score):

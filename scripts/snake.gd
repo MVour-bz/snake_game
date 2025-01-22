@@ -42,6 +42,9 @@ func _ready() -> void:
 	SignalBus.change_theme.connect(_on_theme_change)
 	update_bg_color()
 	new_game()
+
+
+#func test():
 	
 
 

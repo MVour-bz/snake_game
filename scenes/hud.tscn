@@ -23,9 +23,11 @@ bg_color = Color(0, 0, 0, 0.588235)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a4ito"]
 font = ExtResource("2_42q4b")
+font_size = 50
 font_color = Color(1, 0.0862745, 1, 1)
 
-[sub_resource type="Animation" id="Animation_0tsso"]
+[sub_resource type="Animation" id="Animation_g1ubd"]
+resource_name = "Label"
 loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -34,15 +36,14 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(5, 5)]
+"values": [Vector2(2, 2), Vector2(0.2, 0.2)]
 }
 
-[sub_resource type="Animation" id="Animation_7hg7m"]
-resource_name = "TEXT_GROW"
-loop_mode = 2
+[sub_resource type="Animation" id="Animation_c5r8x"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -50,16 +51,16 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(5, 5)]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xflhx"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m6k1l"]
 _data = {
-"RESET": SubResource("Animation_0tsso"),
-"TEXT_GROW": SubResource("Animation_7hg7m")
+"Label": SubResource("Animation_g1ubd"),
+"RESET": SubResource("Animation_c5r8x")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xdv3"]
@@ -143,20 +144,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yyps2")
 script = ExtResource("3_nbvr4")
 
 [node name="Label" type="Label" parent="Hud/GameOverPanel"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -70.0
-offset_top = -31.0
-offset_right = 70.0
-offset_bottom = 31.0
+offset_left = -183.0
+offset_top = -28.5
+offset_right = 183.0
+offset_bottom = 28.5
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(70, 31)
+pivot_offset = Vector2(183, 28)
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 30
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_a4ito")
 horizontal_alignment = 1
@@ -165,7 +168,7 @@ uppercase = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Hud/GameOverPanel/Label"]
 libraries = {
-"": SubResource("AnimationLibrary_xflhx")
+"": SubResource("AnimationLibrary_m6k1l")
 }
 
 [node name="Top10Panel" type="Panel" parent="Hud"]
@@ -182,7 +185,7 @@ anchor_right = 1.0
 offset_bottom = 34.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_42q4b")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 text = "TOP 10"
 horizontal_alignment = 1
 vertical_alignment = 1
