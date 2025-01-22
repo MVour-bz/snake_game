@@ -26,4 +26,4 @@ const PALLETES : Dictionary = {
 	}
 }
 
-var ACTIVE_THEME = "light_theme"
+var ACTIVE_THEME = "dark_theme"

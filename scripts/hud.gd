@@ -7,6 +7,7 @@ class_name Hud extends Node2D
 @onready var high_score_label: Label = $Hud/ScorePanel/HighScoreLabel
 @onready var top_10_panel: Top10Panel = $Hud/Top10Panel as Top10Panel
 @onready var store_score_panel: StoreScorePanel = $Hud/StoreScorePanel
+@onready var save_button: SaveButton = $Hud/StoreScorePanel/VBoxContainer/SaveButton
 
 @onready var game_data_file
 @onready var statistics_dict
@@ -66,6 +67,7 @@ func game_over():
 	if is_top_10(score):
 		store_score_panel.show()
 		store_score_panel.set_score_label(score)
+		save_button.disabled = false
 	
 	
 
@@ -78,7 +80,7 @@ func open_game_file():
 	if statistics_dict == null:
 		statistics_dict = base_stats_dict
 	statistics_dict["top_10"].sort_custom(func(a,b):
-		return b["score"]-a["score"])
+		return a["score"]-b["score"])
 	game_data_file.close()
 	
 func get_top_10():
@@ -124,7 +126,7 @@ func update_game_statistics(name, score) -> bool:
 		update_high_score_label(name, score)
 	
 	statistics_dict["top_10"].sort_custom(func(a,b):
-		return b["score"]-a["score"])
+		return a["score"]>b["score"])
 	store_updated_dict()
 	print("updated")
 	return true
@@ -148,11 +150,3 @@ func _on_store_score_panel_store_score(name, score) -> void:
 	if update_game_statistics(name, score):
 		top_10_panel.empty_top_10()
 		top_10_panel.set_top_10(statistics_dict["top_10"])
-
-
-func _on_change_theme_button_button_down() -> void:
-	if Global.ACTIVE_THEME == "dark_theme":
-		Global.ACTIVE_THEME = "light_theme"
-	else:
-		Global.ACTIVE_THEME = "dark_theme"
-	SignalBus.change_theme.emit()

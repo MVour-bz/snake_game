@@ -128,7 +128,6 @@ func _physics_process(delta: float) -> void:
 
 func speed_up():
 	speed +=  speed_step
-	print("speed: ", speed)
 
 func update_snake():
 	
