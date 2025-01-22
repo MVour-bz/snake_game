@@ -98,19 +98,19 @@ func create_head():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("ui_up") && move_direction != Vector2.DOWN:
 		move_direction = Vector2.UP
 		move_direction_string = "up"
 	
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down") && move_direction != Vector2.UP:
 		move_direction = Vector2.DOWN
 		move_direction_string = "down"
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") && move_direction != Vector2.LEFT:
 		move_direction = Vector2.RIGHT
 		move_direction_string = "right"
 	
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("ui_left") && move_direction != Vector2.RIGHT:
 		move_direction = Vector2.LEFT
 		move_direction_string = "left"
 	
