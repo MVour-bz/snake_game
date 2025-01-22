@@ -78,7 +78,7 @@ func spawn_head(pos:Vector2):
 	head.use_texture("snake_head", 0)
 	head.position = pos
 	head.is_head = true
-	get_parent().add_child(head)
+	get_parent().add_child(head) 
 	return head
 	#tail_added.emit(head)
 	

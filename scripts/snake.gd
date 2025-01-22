@@ -13,7 +13,7 @@ var cell_size : int = 50
 var snake : Array[SnakePart] = []
 
 ## Movement vars
-var start_pos = Vector2(9, 9)
+var start_pos = Vector2(9*16, 9*16)
 var move_direction : Vector2
 var move_direction_string : String
 var can_move : bool
@@ -27,6 +27,7 @@ var speed_step : float = 25.0
 @onready var spawner : Spawner = $Spawner as Spawner
 @onready var hud: Hud = $Hud as Hud
 @onready var bg_panel: Panel = $TileMapLayer/BGPanel
+@onready var start_panel: Panel = $StartPanel
 
 
 
@@ -89,7 +90,7 @@ func new_game():
 	speed = 1000.0
 	
 	## start game
-	game_active = true
+	#game_active = true
 
 func create_head():
 	head = spawner.spawn_head(start_pos)
@@ -184,3 +185,9 @@ func _on_snake_collided():
 func _on_play_again():
 	hud.reset_all()
 	new_game()
+
+
+func _on_label_pressed() -> void:
+	start_panel.hide()
+	#new_game()
+	game_active = true

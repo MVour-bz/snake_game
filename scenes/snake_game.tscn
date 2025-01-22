@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://boplsbgo4bsou"]
+[gd_scene load_steps=13 format=4 uid="uid://boplsbgo4bsou"]
 
 [ext_resource type="Script" path="res://scripts/snake.gd" id="1_cpkrd"]
 [ext_resource type="Texture2D" uid="uid://cen6tsj8gn0cv" path="res://assets/bg.png" id="2_hd7if"]
 [ext_resource type="Texture2D" uid="uid://c7xcy813t1uux" path="res://assets/outter_wall.png" id="3_i3tdd"]
 [ext_resource type="PackedScene" uid="uid://btxgdgjef53lx" path="res://scenes/hud.tscn" id="4_3nq1r"]
 [ext_resource type="Script" path="res://scripts/bounds.gd" id="6_w1wvv"]
+[ext_resource type="FontFile" uid="uid://y1gcmddq3xmk" path="res://assets/fonts/pixel-game/Pixel Game.otf" id="7_c1ry0"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="7_dwuq6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plm2s"]
@@ -22,7 +23,11 @@ sources/1 = SubResource("TileSetAtlasSource_v7xlp")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig4x0"]
 bg_color = Color(0.726038, 0.50521, 0.772961, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc60o"]
+bg_color = Color(0.482353, 0.458824, 0.964706, 0.572549)
+
 [node name="main" type="Node2D"]
+top_level = true
 script = ExtResource("1_cpkrd")
 
 [node name="Hud" parent="." instance=ExtResource("4_3nq1r")]
@@ -52,3 +57,41 @@ offset_top = 64.0
 offset_right = 784.0
 offset_bottom = 784.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ig4x0")
+
+[node name="StartPanel" type="Panel" parent="."]
+z_index = 2
+z_as_relative = false
+custom_minimum_size = Vector2(30, 30)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 784.0
+offset_bottom = 784.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nc60o")
+
+[node name="Label" type="Button" parent="StartPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.5
+offset_top = -95.5
+offset_right = 201.5
+offset_bottom = 95.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.889168, 0.557027, 0.254241, 1)
+theme_override_fonts/font = ExtResource("7_c1ry0")
+theme_override_font_sizes/font_size = 180
+toggle_mode = true
+text = "START"
+flat = true
+clip_text = true
+
+[connection signal="pressed" from="StartPanel/Label" to="." method="_on_label_pressed"]
