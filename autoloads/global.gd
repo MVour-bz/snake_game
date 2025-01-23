@@ -20,7 +20,7 @@ const PALLETES : Dictionary = {
 		"secondary": "#FF5E1696",
 		"surface": "#1b03a396",
 		"highlight": "#16FF5E",
-		"background": "#FFFFFF",
+		"background": "#8cbfc2",
 		"glow": "#1600FF",
 		"snake": "#00FF00"
 	}
