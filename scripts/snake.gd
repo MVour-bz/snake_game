@@ -16,6 +16,7 @@ var snake : Array[SnakePart] = []
 var start_pos = Vector2(9*16, 9*16)
 var move_direction : Vector2
 var move_direction_string : String
+var next_move_direction : Vector2
 var can_move : bool
 var time_between_moves : float = 10000.0
 var time_since_last_move : float = 0
@@ -28,7 +29,7 @@ var speed_step : float = 25.0
 @onready var hud: Hud = $Hud as Hud
 @onready var bg_panel: Panel = $TileMapLayer/BGPanel
 @onready var start_panel: Panel = $StartPanel
-
+@onready var move_buffer : Array = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,11 +43,8 @@ func _ready() -> void:
 	hud.reset_all()
 	SignalBus.change_theme.connect(_on_theme_change)
 	update_bg_color()
-	new_game()
+	#new_game()
 
-
-#func test():
-	
 
 
 func _on_theme_change():
@@ -90,7 +88,7 @@ func new_game():
 	speed = 1000.0
 	
 	## start game
-	#game_active = true
+	game_active = true
 
 func create_head():
 	head = spawner.spawn_head(start_pos)
@@ -99,35 +97,57 @@ func create_head():
 	return head
 	
 
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	#print("buffer: ", move_buffer)
+	var next_move = move_buffer.pop_front()
+	#move_buffer.clear()
 	
-	if Input.is_action_pressed("ui_up") && move_direction != Vector2.DOWN:
-		move_direction = Vector2.UP
+	if next_move == "up" && move_direction != Vector2.DOWN:
+		next_move_direction = Vector2.UP
 		move_direction_string = "up"
 	
-	if Input.is_action_pressed("ui_down") && move_direction != Vector2.UP:
-		move_direction = Vector2.DOWN
+	if next_move == "down" && move_direction != Vector2.UP:
+		next_move_direction = Vector2.DOWN
 		move_direction_string = "down"
 	
-	if Input.is_action_pressed("ui_right") && move_direction != Vector2.LEFT:
-		move_direction = Vector2.RIGHT
+	if next_move == "right" && move_direction != Vector2.LEFT:
+		next_move_direction = Vector2.RIGHT
 		move_direction_string = "right"
 	
-	if Input.is_action_pressed("ui_left") && move_direction != Vector2.RIGHT:
-		move_direction = Vector2.LEFT
+	if next_move == "left" && move_direction != Vector2.RIGHT:
+		next_move_direction = Vector2.LEFT
 		move_direction_string = "left"
 	
-	pass
-	
-
-func _physics_process(delta: float) -> void:
 	if not game_active:
 		return
 	time_since_last_move += delta + speed
 	if time_since_last_move >= time_between_moves:
 		update_snake()
 		time_since_last_move = 0
+	pass
+	
+
+func _physics_process(delta: float) -> void:
+	pass
+
+
+#func test():
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_up"):
+		#print("mphke")
+		move_buffer.append("up")
+	elif event.is_action_pressed("ui_down"):
+		move_buffer.append("down")
+	elif event.is_action_pressed("ui_right"):
+		move_buffer.append("right")
+	elif event.is_action_pressed("ui_left"):
+		move_buffer.append("left")
+	
+	
+
 
 
 func speed_up():
@@ -135,9 +155,10 @@ func speed_up():
 
 func update_snake():
 	
-	var new_pos:Vector2 = head.position + move_direction * Global.TILE_SIZE
+	var new_pos:Vector2 = head.position + next_move_direction * Global.TILE_SIZE
 	new_pos = bounds.wrap_vector(new_pos)
 	head.move_to(new_pos)
+	move_direction = next_move_direction
 	head.update_head(move_direction_string)
 	
 	for i in range(1, snake.size(), 1):
@@ -189,5 +210,5 @@ func _on_play_again():
 
 func _on_label_pressed() -> void:
 	start_panel.hide()
-	#new_game()
-	game_active = true
+	new_game()
+	#game_active = true
