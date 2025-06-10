@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cx1i70bpxwmy7"]
 
-[ext_resource type="Script" path="res://scripts/food.gd" id="1_xcjhh"]
+[ext_resource type="Script" uid="uid://b5wvv8chfjo6q" path="res://scripts/food.gd" id="1_xcjhh"]
 [ext_resource type="Texture2D" uid="uid://bt7wgpo8u8i4e" path="res://assets/bannana.png" id="2_rsg53"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be41x"]

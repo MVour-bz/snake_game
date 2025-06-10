@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=4 uid="uid://boplsbgo4bsou"]
 
-[ext_resource type="Script" path="res://scripts/snake.gd" id="1_cpkrd"]
+[ext_resource type="Script" uid="uid://ctgcs8y4psa3c" path="res://scripts/snake.gd" id="1_cpkrd"]
 [ext_resource type="Texture2D" uid="uid://cen6tsj8gn0cv" path="res://assets/bg.png" id="2_hd7if"]
 [ext_resource type="Texture2D" uid="uid://c7xcy813t1uux" path="res://assets/outter_wall.png" id="3_i3tdd"]
 [ext_resource type="PackedScene" uid="uid://btxgdgjef53lx" path="res://scenes/hud.tscn" id="4_3nq1r"]
-[ext_resource type="Script" path="res://scripts/bounds.gd" id="6_w1wvv"]
+[ext_resource type="Script" uid="uid://dsw7613dhwcfl" path="res://scripts/bounds.gd" id="6_w1wvv"]
 [ext_resource type="FontFile" uid="uid://y1gcmddq3xmk" path="res://assets/fonts/pixel-game/Pixel Game.otf" id="7_c1ry0"]
-[ext_resource type="Script" path="res://scripts/spawner.gd" id="7_dwuq6"]
+[ext_resource type="Script" uid="uid://s83mlcv2if5x" path="res://scripts/spawner.gd" id="7_dwuq6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plm2s"]
 texture = ExtResource("2_hd7if")
